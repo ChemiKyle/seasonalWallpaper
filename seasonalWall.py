@@ -5,7 +5,7 @@ loc = "/home/user/path/to/files/"
 
 date = datetime.datetime.now()
 
-# fetch month and date as strings, concatenate, redefine as integer
+# Fetch month and date as strings, concatenate, redefine as integer to compare against seasons
 dateNum = int(str(date.month) + str(date.day))
 
 
@@ -20,8 +20,8 @@ elif dateNum >= 320:			# Spring defined as after 3/20
 	season = "spring/"
 
 # Night friendly mode, with inclusions for seasonality in terms of snow
-if date.hour >= 20 or date.hour <= 6:
-	if dateNum >= 1115 or dateNum <= 405:
+if date.hour >= 20 or date.hour <= 6:		# If it's between 8pm and 6am, consider it night
+	if dateNum >= 1115 or dateNum <= 405:	# If it's between 11/15 and 4/05, choose from snowy night images
 		season = "night/snow/"
 	else:
 		season = "night/nosnow/"
@@ -29,7 +29,7 @@ else:
 	season = season
 
 
-# pick a random picture
+# Pick a random picture
 pic = random.choice(os.listdir(loc + season))
 
 # This works for ubuntu, will be testing in debian environments next
