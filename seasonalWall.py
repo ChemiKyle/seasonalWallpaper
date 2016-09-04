@@ -12,11 +12,10 @@ day = str(date.day)
 if int(day) <= 9:
 	day = "0" + day
 
-# fetch month and date as strings, concatenate, redefine as integer
+# create an integer representing the date
 dateNum = int(month + day)
-print(str(date.day))
 
-# Check date against concatenated dates of seasons, rename season accordingly
+# check date against concatenated dates of seasons, rename season accordingly
 if dateNum >= 1221 or dateNum < 320:
 	season = "winter/"
 elif dateNum >= 922:
@@ -32,8 +31,6 @@ if date.hour >= 20 or date.hour <= 6:
 		season = "night/snow/"
 	else:
 		season = "night/nosnow/"
-else:
-	season = season
 
 
 # pick a random picture
