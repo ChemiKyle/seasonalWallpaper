@@ -1,27 +1,34 @@
 import os, random, datetime
 
-# Define the location of files
-loc = "/home/user/path/to/files/"
+
+loc = "/path/to/directories/"
 
 date = datetime.datetime.now()
 
-# Fetch month and date as strings, concatenate, redefine as integer to compare against seasons
-dateNum = int(str(date.month) + str(date.day))
+month = str(date.month)
+day = str(date.day)
 
+# precede the date with a 0 if it's before the 10th; otherwise the first 9 days of every month are winter!
+if int(day) <= 9:
+	day = "0" + day
+
+# fetch month and date as strings, concatenate, redefine as integer
+dateNum = int(month + day)
+print(str(date.day))
 
 # Check date against concatenated dates of seasons, rename season accordingly
-if dateNum >= 1221 or dateNum < 320:	# Winter defined as between 12/21 and 3/20
+if dateNum >= 1221 or dateNum < 320:
 	season = "winter/"
-elif dateNum >= 922:			# Autumn defined as after 9/22
+elif dateNum >= 922:
 	season = "autumn/"
-elif dateNum >= 621:			# Summer defined as after 6/21
+elif dateNum >= 621:
 	season = "summer/"
-elif dateNum >= 320:			# Spring defined as after 3/20
+elif dateNum >= 320:
 	season = "spring/"
 
-# Night friendly mode, with inclusions for seasonality in terms of snow
-if date.hour >= 20 or date.hour <= 6:		# If it's between 8pm and 6am, consider it night
-	if dateNum >= 1115 or dateNum <= 405:	# If it's between 11/15 and 4/05, choose from snowy night images
+# night friendly mode
+if date.hour >= 20 or date.hour <= 6:
+	if dateNum >= 1115 or dateNum <= 405:
 		season = "night/snow/"
 	else:
 		season = "night/nosnow/"
@@ -29,9 +36,9 @@ else:
 	season = season
 
 
-# Pick a random picture
+# pick a random picture
 pic = random.choice(os.listdir(loc + season))
 
-# This works for ubuntu, will be testing in debian environments next
+
 os.system("gsettings set org.gnome.desktop.background picture-uri file://" + loc + season + pic)
 print("Changed to " +  pic)
